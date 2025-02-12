@@ -8,9 +8,11 @@ import Home from "./page/Home";
 import LayoutProvider from "./provider/LayoutProvider";
 import Category from "./page/Category";
 import Store from "./page/Store";
+import QueryProvider from "./provider/QueryProvider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <QueryProvider>
     <Router>
       <LayoutProvider>
       <Routes>
@@ -20,5 +22,6 @@ createRoot(document.getElementById("root")!).render(
         </Routes>
       </LayoutProvider>
     </Router>
+    </QueryProvider>
   </StrictMode>
 );

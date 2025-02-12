@@ -32,6 +32,11 @@ export const getDistance = async (
     duration: route.duration.text,
     deliveryFee: deliveryFee,
   };
+  // return {
+  //   distance: 1000,
+  //   duration: 40,
+  //   deliveryFee: 3500,
+  // };
 };
 
 export const coordsToAddress = async (): Promise<AddressData | string> => {

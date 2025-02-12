@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { coordsToAddress } from "./getDistance";
+import { coordsToAddress } from "../../../lib/getDistance";
 import useInfoStore from "../../../store/infoStore";
 
 interface LocationProps {

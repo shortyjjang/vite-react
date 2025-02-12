@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useInfoStore from "../../../store/infoStore";
-import { getDistance } from "../../Setting/Address/getDistance";
+import { getDistance } from "../../../lib/getDistance";
 import { useNavigate } from "react-router-dom";
 
 export default function StoreItem({
@@ -59,9 +59,40 @@ export interface StoreItemProps {
   lat: number;
   phone: string;
   time: string;
-  menu: string[];
   score: number;
   reviewCount: number;
-  paymentMethod: string;
-  minOrderAmount: number;
+  paymentMethod?: string;
+  minOrderAmount?: number;
+  categories?: CategoryItemProps[];
+  duration?: number;
+  deliveryFee?: number;
+  distance?: number;
+}
+
+export interface CategoryItemProps {
+  name: string;
+  menus: MenuItemProps[];
+}
+
+export interface MenuItemProps {
+  name: string;
+  price: number;
+  isBest?: boolean;
+  description?: string;
+  reviewCount?: number;
+  optionGroups?: OptionGroupProps[];
+  ingredient?: string[];
+  image?: string;
+}
+
+export interface OptionGroupProps {
+  name: string;
+  options: OptionProps[];
+  minSelectableCount?: number;
+  maxSelectableCount?: number;
+}
+
+export interface OptionProps {
+  name: string;
+  additionalPrice: number;
 }
