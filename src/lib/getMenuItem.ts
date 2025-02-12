@@ -3,6 +3,7 @@ export const getMenuItem = async (storeId: string, menuId: string) => {
   //   const response = await fetch(`/api/stores/${storeId}/menus/${menuId}`);
   //   return response.json();
   return {
+    id:1,
     name: "토마토 샐러드",
     price: 7600,
     isBest: true,

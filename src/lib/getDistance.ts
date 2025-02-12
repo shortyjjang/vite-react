@@ -20,23 +20,26 @@ export const getDistance = async (
     lng: number;
   }
 ) => {
-  const dirRes = await fetch(
-    `${DIRECTIONS_URL}?origin=${current.lat},${current.lng}&destination=${target.lat},${target.lng}&mode=driving&key=${API_KEY}`
-  );
-  const dirData = await dirRes.json();
-  const route = dirData.routes[0].legs[0];
+  try {
+    const dirRes = await fetch(
+      `${DIRECTIONS_URL}?origin=${current.lat},${current.lng}&destination=${target.lat},${target.lng}&mode=driving&key=${API_KEY}`
+    );
+    const dirData = await dirRes.json();
+    const route = dirData.routes[0].legs[0];
 
-  const deliveryFee = route.distance.value * 0.0001;
-  return {
-    distance: route.distance.text,
-    duration: route.duration.text,
-    deliveryFee: deliveryFee,
-  };
-  // return {
-  //   distance: 1000,
-  //   duration: 40,
-  //   deliveryFee: 3500,
-  // };
+    const deliveryFee = route.distance.value * 0.0001;
+    return {
+      distance: route.distance.text,
+      duration: route.duration.text,
+      deliveryFee: deliveryFee,
+    };
+  } catch (error) {
+    return {
+      distance: 1000,
+      duration: 40,
+      deliveryFee: 3500,
+    };
+  }
 };
 
 export const coordsToAddress = async (): Promise<AddressData | string> => {

@@ -9,6 +9,7 @@ import LayoutProvider from "./provider/LayoutProvider";
 import Category from "./page/Category";
 import Store from "./page/Store";
 import QueryProvider from "./provider/QueryProvider";
+import MenuDetail from "./page/Store/Menu";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<Home />} />
           <Route path="/categories/:category" element={<Category />} />
           <Route path="/store/:id" element={<Store />} />
+          <Route path="/store/:id/menu/:menuId" element={<MenuDetail />} />
         </Routes>
       </LayoutProvider>
     </Router>

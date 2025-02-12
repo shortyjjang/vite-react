@@ -75,6 +75,7 @@ export interface CategoryItemProps {
 }
 
 export interface MenuItemProps {
+  id: number;
   name: string;
   price: number;
   isBest?: boolean;

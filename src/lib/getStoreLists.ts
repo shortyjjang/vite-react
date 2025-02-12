@@ -26,6 +26,7 @@ export const getStoreLists = async (category: string) => {
           name: "샐러드",
           menus: [
             {
+              id: 1,
               name: "토마토 샐러드",
               price: 7600,
               isBest: true,
