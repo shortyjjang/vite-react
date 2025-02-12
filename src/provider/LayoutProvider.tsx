@@ -32,7 +32,7 @@ export default function LayoutProvider({
         setShowHomebar,
       }}
     >
-      {children}
+      <div className="p-4">{children}</div>
       {(totalPrice > 0 || showHomebar) && (
         <div className="fixed bottom-0 left-0 right-0 bg-white z-10 rounded-t-xl shadow-lg shadow-black">
           {totalPrice > 0 && <OrderSummary />}

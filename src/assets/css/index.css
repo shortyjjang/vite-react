@@ -3,3 +3,7 @@
 body {
   font-family: "Pretendard-Regular";
 }
+
+input, button {
+  outline: none;
+}

@@ -5,24 +5,24 @@ import IconCoinMono from "../../assets/images/icon-coin-mono";
 
 export const menus = [
   {
-    label: "Home",
+    label: "홈",
     path: "/",
     icon: IconHomeMono,
   },
   {
-    label: "Category",
-    path: "/category",
-    icon: IconLineThreeMono,
-  },
-  {
-    label: "Store",
+    label: "단골",
     path: "/store",
     icon: IconPinLocationMono,
   },
   {
-    label: "Profile",
-    path: "/profile",
+    label: "주문내역",
+    path: "/order",
     icon: IconCoinMono,
+  },
+  {
+    label: "전체",
+    path: "/category",
+    icon: IconLineThreeMono,
   },
 ];
 
