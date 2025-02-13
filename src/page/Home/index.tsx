@@ -3,25 +3,33 @@ import { useLayout } from "../../provider/LayoutProvider";
 import { categories } from "../../features/Category/categories";
 import CategoryItem from "../../features/Category/CategoryItem";
 import { useNavigate } from "react-router-dom";
-import IconNotify from "../../assets/images/icon-notify";
 import IconArrow from "../../assets/images/icon-arrow";
 import SearchInput from "../../components/SearchInput";
+import Title from "../../components/TItle";
+import IconNotifyLine from "../../assets/images/icon-notify-line";
+import useInfoStore from "../../store/infoStore";
 
 export default function Home() {
   const { setShowHomebar } = useLayout();
+  const { address } = useInfoStore();
   const navigate = useNavigate();
   useEffect(() => {
     setShowHomebar(true);
+    return () => {
+      setShowHomebar(false);
+    }
   }, [setShowHomebar]);
   return (
     <div>
       <SearchInput onSearch={() => {}} className="-mt-4 mb-4" />
-      <h1 className="text-2xl font-semibold">오늘은 무엇을 먹을까요?</h1>
-      <button className="py-2">
-        한남중앙로 40길 (한남 빌리지)(으)로 배달 &gt;
+      <Title title="오늘은 무엇을 먹을까요?" element="h1" />
+      <button className="py-2" onClick={() => {
+        navigate('/setting/address');
+      }}>
+        {address}로 배달 &gt;
       </button>
       <div className="flex items-center gap-1 py-2">
-        <IconNotify className="text-red-500" />
+        <IconNotifyLine className="text-red-500" />
         <span>현재 주문하는 곳과 배달받는 곳이 멀어요.</span>
       </div>
       <div className="grid grid-cols-3 gap-2 py-4">

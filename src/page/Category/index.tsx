@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import IconArrow from "../../assets/images/icon-arrow";
 import { categories } from "../../features/Category/categories";
 import StoreItem, { StoreItemProps } from "../../features/Store/StoreItem";
 import { useQuery } from "@tanstack/react-query";
 import { getStoreLists } from "../../lib/getStoreLists";
+import BackHeader from "../../components/BackHeader";
+import Title from "../../components/TItle";
 
 export default function Category() {
   const navigate = useNavigate();
@@ -16,10 +17,8 @@ export default function Category() {
   );
   return (
     <div>
-      <button onClick={() => navigate(-1)} className="py-4 px-2 fixed left-0 top-0">
-        <IconArrow className="w-6 h-6 rotate-180" />
-      </button>
-      <h1 className="text-2xl font-semibold pt-16">{categoryName || "카테고리"}</h1>
+      <BackHeader onBack={() => navigate(-1)} />
+      <Title title={categoryName || "카테고리"} element="h1" className="pt-10" />
       {isLoading     ? (
         <div>Loading...</div>
       ) : (

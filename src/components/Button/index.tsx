@@ -10,25 +10,25 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { children, className, size = "md", variant = "default", ...props },
+    { children, className, size = "md", variant = "primary", ...props },
     ref
   ) => {
     return (
       <button
         className={twMerge(
-          "rounded-xl",
+          "disabled:opacity-50 disabled:cursor-not-allowed",
           variant === "primary"
             ? "bg-blue-500 text-white"
             : variant === "secondary"
-            ? "bg-gray-500 text-white"
+            ? "bg-gray-200 text-gray-500"
             : variant === "danger"
             ? "bg-red-500 text-white"
-            : "bg-gray-200 text-gray-500",
+            : "text-blue-500 font-semibold",
           size === "lg"
-            ? "py-3 px-6 text-lg"
+            ? "rounded-xl py-3 px-6 text-lg"
             : size === "sm"
-            ? "py-1 px-2 text-sm"
-            : "py-2 px-4",
+            ? "rounded-lg py-2 px-3 text-xs"
+            : "rounded-lg py-2 px-4 text-sm",
           className
         )}
         {...props}

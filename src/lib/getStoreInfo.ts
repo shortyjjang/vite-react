@@ -1,8 +1,5 @@
-import { getDistance } from "./getDistance";
-
 export const getStoreInfo = async (
   storeId: string,
-  myCoords: { lat: number; lng: number }
 ) => {
   //   const response = await fetch(`/api/stores/${storeId}`);
   let response: any = {
@@ -20,6 +17,8 @@ export const getStoreInfo = async (
     reviewCount: 3919,
     lng: 126.978,
     lat: 37.5665,
+    deliveryFee: 3000,
+    duration: '10분~20분',
     categories: [
       {
         name: "샐러드",
@@ -97,17 +96,5 @@ export const getStoreInfo = async (
       },
     ],
   };
-  const coords = await getDistance(myCoords, {
-    lat: response.lat,
-    lng: response.lng,
-  });
-  if (coords) {
-    response = {
-      ...response,
-      distance: coords.distance,
-      duration: coords.duration,
-      deliveryFee: coords.deliveryFee,
-    };
-  }
   return response;
 };

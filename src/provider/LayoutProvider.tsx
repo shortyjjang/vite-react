@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { createContext } from "react";
 import Homebar from "../features/Homebar";
-import OrderSummary from "../features/OrderSummary";
+import OrderSummary from "../features/Order/OrderSummary";
 import useOrderStore from "../store/orderStore";
 import Alert, { AlertProps } from "../components/Alert";
 import Toast from "../components/Toast";
@@ -39,15 +39,7 @@ export default function LayoutProvider({
 }) {
   const [showHomebar, setShowHomebar] = useState(false);
   const [showOrderSummary, setShowOrderSummary] = useState(false);
-  const { order } = useOrderStore();
-  const totalPrice = order.orders.reduce(
-    (acc, curr) =>
-      acc +
-      (curr.price +
-        (curr.options || []).reduce((acc, curr) => acc + (curr.additionalPrice || 0), 0) *
-          (curr.quantity || 0)),
-    0
-  );
+  const { totalPrice } = useOrderStore();
   const [alert, setAlert] = useState<LayoutAlertProps | null>(null);
   return (
     <LayoutContext.Provider

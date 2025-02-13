@@ -64,9 +64,8 @@ export interface StoreItemProps {
   paymentMethod?: string;
   minOrderAmount?: number;
   categories?: CategoryItemProps[];
-  duration?: number;
+  duration?: string;
   deliveryFee?: number;
-  distance?: number;
 }
 
 export interface CategoryItemProps {

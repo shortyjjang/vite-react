@@ -1,4 +1,4 @@
-import IconArrow from "../../../../assets/images/icon-arrow";
+import BackHeader from "../../../../components/BackHeader";
 
 export default function SummaryCard({
   onBack,
@@ -15,13 +15,8 @@ export default function SummaryCard({
 }) {
   return (
     <>
-      <button
-        onClick={onBack}
-        className="sticky top-0 z-10 py-4 px-2 -mt-4 -ml-4"
-      >
-        <IconArrow className="w-6 h-6 rotate-180" />
-      </button>
-      <div className="-mx-4 w-[calc(100vw+2rem)]">
+      <BackHeader onBack={onBack} />
+      <div className="-mx-4 w-screen">
         <img
           src={image}
           alt={name}

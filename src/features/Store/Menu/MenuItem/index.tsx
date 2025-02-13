@@ -7,46 +7,46 @@ import { useLayout } from "../../../../provider/LayoutProvider";
 export default function MenuItem({
   menu,
   storeId,
-  minOrderAmount,
+  minOrderAmount = 0,
+  storeName,
+  deliveryFee = 0,
 }: {
   menu: MenuItemProps;
   storeId: number;
   minOrderAmount: number;
+  storeName: string;
+  deliveryFee: number;
 }) {
   const navigate = useNavigate();
-  const {setAlert} = useLayout();
+  const { setAlert } = useLayout();
   const { order, setOrder } = useOrderStore();
   const checkAvailableOrder = () => {
     return new Promise<boolean>((resolve) => {
-      if (
-        // order.storeId &&
-        order.storeId !== storeId)
-       {
+      if (order.storeId && order.storeId !== storeId) {
         setAlert({
           title: "주문서에는 같은 가게만 담을 수 있어요",
           description: "새로 담고 이전에 담은 메뉴는 삭제할까요?",
-          status: 'alert',
+          status: "alert",
           onConfirm: () => {
             resolve(true);
           },
           onCancel: () => {
             resolve(false);
           },
-        }
-        ) 
+        });
       }
       resolve(true);
     });
-  }
+  };
   const addToOrder = async (menu: MenuItemProps) => {
     const isAvailable = await checkAvailableOrder();
     if (isAvailable) {
       setOrder({
         storeId: storeId,
         minOrderPrice: minOrderAmount,
-        orders: order.orders.some(
-          (orderItem) => orderItem.menuId === menu.id
-        )
+        storeName: storeName,
+        deliveryFee: deliveryFee,
+        orders: order.orders.some((orderItem) => orderItem.menuId === menu.id)
           ? order.orders.map((orderItem) =>
               orderItem.menuId === menu.id
                 ? {
@@ -61,6 +61,8 @@ export default function MenuItem({
                 menuId: menu.id,
                 name: menu.name,
                 price: menu.price,
+                image: menu.image || "",
+                ingredient: menu?.ingredient || [],
                 quantity: 1,
                 options: [],
               },
@@ -68,7 +70,7 @@ export default function MenuItem({
       });
       navigate(`/store/${storeId}/menu/${menu.id}`);
     }
-  }
+  };
   return (
     <li className="grid grid-cols-[54px_auto_100px] gap-x-4 gap-y-1">
       <div className="row-span-3 flex items-center">
@@ -83,10 +85,7 @@ export default function MenuItem({
         {menu.isBest && <b className="font-medium text-blue-500">BEST</b>}
       </h4>
       <div className="row-span-3 flex justify-end items-center">
-        <Button
-          variant="primary"
-          onClick={() => addToOrder(menu)}
-        >
+        <Button size="sm" onClick={() => addToOrder(menu)}>
           담기
         </Button>
       </div>
