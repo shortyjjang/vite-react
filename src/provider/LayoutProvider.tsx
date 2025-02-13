@@ -7,7 +7,7 @@ import Alert, { AlertProps } from "../components/Alert";
 import Toast from "../components/Toast";
 
 interface LayoutAlertProps extends AlertProps {
-  status?: 'alert' | 'toast';
+  status?: "alert" | "toast";
 }
 
 interface LayoutContextType {
@@ -15,6 +15,8 @@ interface LayoutContextType {
   setShowHomebar: (show: boolean) => void;
   alert: LayoutAlertProps | null;
   setAlert: (alert: LayoutAlertProps | null) => void;
+  showOrderSummary: boolean;
+  setShowOrderSummary: (show: boolean) => void;
 }
 
 const LayoutContext = createContext<LayoutContextType>({
@@ -22,6 +24,8 @@ const LayoutContext = createContext<LayoutContextType>({
   setShowHomebar: () => {},
   alert: null,
   setAlert: () => {},
+  showOrderSummary: false,
+  setShowOrderSummary: () => {},
 });
 
 export function useLayout() {
@@ -34,7 +38,16 @@ export default function LayoutProvider({
   children: React.ReactNode;
 }) {
   const [showHomebar, setShowHomebar] = useState(false);
-  const totalPrice = useOrderStore((state) => state.totalPrice);
+  const [showOrderSummary, setShowOrderSummary] = useState(false);
+  const { order } = useOrderStore();
+  const totalPrice = order.orders.reduce(
+    (acc, curr) =>
+      acc +
+      (curr.price +
+        (curr.options || []).reduce((acc, curr) => acc + (curr.additionalPrice || 0), 0) *
+          (curr.quantity || 0)),
+    0
+  );
   const [alert, setAlert] = useState<LayoutAlertProps | null>(null);
   return (
     <LayoutContext.Provider
@@ -43,17 +56,19 @@ export default function LayoutProvider({
         setShowHomebar,
         alert,
         setAlert,
+        showOrderSummary,
+        setShowOrderSummary,
       }}
     >
       <div className="p-4">{children}</div>
-      {(totalPrice > 0 || showHomebar) && (
+      {((totalPrice > 0 && showOrderSummary) || showHomebar) && (
         <div className="fixed bottom-0 left-0 right-0 bg-white z-10 rounded-t-xl shadow-lg shadow-black">
-          {totalPrice > 0 && <OrderSummary />}
+          {(totalPrice > 0 && showOrderSummary) && <OrderSummary />}
           {showHomebar && <Homebar />}
         </div>
       )}
-      {alert?.status === 'alert' && <Alert />}
-      {alert?.status === 'toast' && <Toast />}
+      {alert?.status === "alert" && <Alert />}
+      {alert?.status === "toast" && <Toast />}
     </LayoutContext.Provider>
   );
 }

@@ -84,6 +84,7 @@ export default function MenuItem({
       </h4>
       <div className="row-span-3 flex justify-end items-center">
         <Button
+          variant="primary"
           onClick={() => addToOrder(menu)}
         >
           담기

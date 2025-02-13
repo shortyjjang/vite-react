@@ -17,7 +17,7 @@ export default function MenuDetail() {
   const menuId = pathname.split("/")[4];
   const navigate = useNavigate();
   const { order, setOrder } = useOrderStore();
-  const { setAlert } = useLayout();
+  const { setAlert, setShowOrderSummary } = useLayout();
   const { data: menu, isLoading } = useQuery<MenuItemProps>({
     queryKey: ["menu", storeId, menuId],
     queryFn: async () => {
@@ -105,8 +105,12 @@ export default function MenuDetail() {
     });
   };
   useEffect(() => {
+    setShowOrderSummary(!currentOrder);
     if (!currentOrder) {
       navigate(-1);
+    } 
+    return () => {
+      setShowOrderSummary(true);
     }
   }, [currentOrder]);
   if (isLoading) return <div>Loading...</div>;
