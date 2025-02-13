@@ -1,8 +1,19 @@
 export const getMenuItem = async (storeId: string, menuId: string) => {
-  console.log(storeId, menuId);
-  //   const response = await fetch(`/api/stores/${storeId}/menus/${menuId}`);
-  //   return response.json();
-  return {
+  try {
+    const response = await fetch(`/api/stores/${storeId}/menus/${menuId}`);
+    if (response.ok) {
+        const data = await response.json();
+        if(data.id) {
+            return data;
+        }
+        return dummy;
+    }
+    return dummy;
+  } catch (error) {
+    return dummy;
+  }
+};
+const dummy = {
     id:1,
     name: "토마토 샐러드",
     price: 7600,
@@ -48,4 +59,3 @@ export const getMenuItem = async (storeId: string, menuId: string) => {
       },
     ],
   };
-};

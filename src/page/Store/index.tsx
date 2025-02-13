@@ -78,7 +78,7 @@ export default function Store() {
           <ul>
             {(storeInfo?.categories?.[selectedCategoryIndex]?.menus || []).map(
               (menu) => (
-                <MenuItem key={menu.name} menu={menu} storeId={storeInfo.id} />
+                <MenuItem key={menu.name} menu={menu} storeId={Number(storeInfo.id)} minOrderAmount={storeInfo?.minOrderAmount || 0} />
               )
             )}
           </ul>

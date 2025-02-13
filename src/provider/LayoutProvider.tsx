@@ -3,15 +3,25 @@ import { createContext } from "react";
 import Homebar from "../features/Homebar";
 import OrderSummary from "../features/OrderSummary";
 import useOrderStore from "../store/orderStore";
+import Alert, { AlertProps } from "../components/Alert";
+import Toast from "../components/Toast";
+
+interface LayoutAlertProps extends AlertProps {
+  status?: 'alert' | 'toast';
+}
 
 interface LayoutContextType {
   showHomebar: boolean;
   setShowHomebar: (show: boolean) => void;
+  alert: LayoutAlertProps | null;
+  setAlert: (alert: LayoutAlertProps | null) => void;
 }
 
 const LayoutContext = createContext<LayoutContextType>({
   showHomebar: false,
   setShowHomebar: () => {},
+  alert: null,
+  setAlert: () => {},
 });
 
 export function useLayout() {
@@ -25,11 +35,14 @@ export default function LayoutProvider({
 }) {
   const [showHomebar, setShowHomebar] = useState(false);
   const totalPrice = useOrderStore((state) => state.totalPrice);
+  const [alert, setAlert] = useState<LayoutAlertProps | null>(null);
   return (
     <LayoutContext.Provider
       value={{
         showHomebar,
         setShowHomebar,
+        alert,
+        setAlert,
       }}
     >
       <div className="p-4">{children}</div>
@@ -39,6 +52,8 @@ export default function LayoutProvider({
           {showHomebar && <Homebar />}
         </div>
       )}
+      {alert?.status === 'alert' && <Alert />}
+      {alert?.status === 'toast' && <Toast />}
     </LayoutContext.Provider>
   );
 }

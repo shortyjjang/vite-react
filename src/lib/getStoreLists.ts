@@ -1,11 +1,19 @@
 export const getStoreLists = async (category: string) => {
-  // const response = await fetch(`/api/stores?category=${category}`);
-  // if (response.ok) {
-  //     const data = await response.json();
-  //     return data;
-  // }
-  console.log(category);
-  return [
+    try {
+        const response = await fetch(`/api/stores?category=${category}`);
+        if (response.ok) {
+            const data = await response.json();
+            if(data.length > 0) {
+                return data;
+            }
+            return dummy;
+        }
+        return dummy;
+    } catch (error) {
+        return dummy;
+    }
+};
+const dummy =[
     {
       id: 1,
       name: "샐로리 한남점",
@@ -114,5 +122,4 @@ export const getStoreLists = async (category: string) => {
       paymentMethod: "현장결제",
       minOrderAmount: 13000,
     },
-  ];
-};
+  ]
